@@ -12,11 +12,11 @@ DATA_FILES = ['icon.icns', 'Resources']
 OPTIONS = {
     'iconfile':'icon.icns',
     'plist': {
-        'CFBundleName'   : 'Markdown & Docx', # 应用名
-        'CFBundleDisplayName': 'Markdown & Docx', # 应用显示名
-        'CFBundleVersion': '2.0.0',
-        'CFBundleIdentifier' : 'Markdown_exchange_Docx', # 应用包名、唯一标识
-        'includes': ['os', 'tkinter', 'pypandoc']
+        'CFBundleName'   : 'Exchange File Type', # 应用名
+        'CFBundleDisplayName': 'Exchange File Type', # 应用显示名
+        'CFBundleVersion': '1.0.0',
+        'CFBundleIdentifier' : 'Exchange_File_Type', # 应用包名、唯一标识
+        'includes': ['os', 'tkinter', 'platform']
     }
 }
 

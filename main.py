@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
 import os
-import pypandoc
 import platform
 
 platform_info = platform.uname()
