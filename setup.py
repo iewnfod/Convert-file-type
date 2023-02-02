@@ -16,7 +16,7 @@ OPTIONS = {
         'CFBundleDisplayName': 'Exchange File Type', # 应用显示名
         'CFBundleVersion': '1.0.0',
         'CFBundleIdentifier' : 'Exchange_File_Type', # 应用包名、唯一标识
-        'includes': ['os', 'tkinter', 'platform']
+        'includes': ['os', 'tkinter', 'platform', 'PIL', 'moviepy']
     }
 }
 

@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 import os
 import platform
+from img_exchange import *
 
 platform_info = platform.uname()
 system = platform_info.system
@@ -82,16 +83,29 @@ def convert():
 
     file_name, file_type = os.path.splitext(file_path)
 
-    add_log(f'开始转化: {file_type} -> {target_type}')
+    target_path = f'{file_name}{target_type}'
+
+    add_log(f'开始转化: {file_path} -> {target_path}')
     root.update()
 
-    os.system(f'{pandoc_path} \'{file_path}\' -o \'{file_name}{target_type}\'')
-    if os.path.exists(f'{file_name}{target_type}'):
-        add_log(text=f'转化成功。文件生成于: {file_name}{target_type}')
-        os.system(f'open {file_name}{target_type}')
+    # 选择文件类型并转化
+    if target_type in image_type:
+        result = image_convert(file_path, target_path)
+
+    elif target_type in gif_type:
+        result = to_gif(file_path, target_path)
+
+    elif target_type in video_type:
+        result = to_video(file_path, target_path)
+
     else:
-        add_log(text='转化失败。请尝试安装或重新安装本地Pandoc')
-        os.system('open https://github.com/jgm/pandoc/releases')
+        result = os.system(f'{pandoc_path} \'{file_path}\' -o \'{target_path}\'')
+
+    if os.path.exists(f'{target_path}'):
+        add_log(text=f'转化成功。文件生成于: {target_path}')
+        os.system(f'open {target_path}')
+    else:
+        add_log(text=f'转化失败。错误信息: \n{result}')
 
 get_file_bt = tk.Button(root, text='选择文件', command=get_file)
 get_file_bt.pack(fill='both')
