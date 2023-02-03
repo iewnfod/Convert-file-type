@@ -6,17 +6,21 @@ Usage:
 """
 
 from setuptools import setup
+import json
+
+with open('config.json', 'r') as f:
+    info = json.loads(f.read())
 
 APP = ['main.py']
-DATA_FILES = ['icon.icns', 'Resources']
+DATA_FILES = ['icon.icns', 'Resources', 'config.json']
 OPTIONS = {
     'iconfile':'icon.icns',
     'plist': {
         'CFBundleName'   : 'Exchange File Type', # 应用名
         'CFBundleDisplayName': 'Exchange File Type', # 应用显示名
-        'CFBundleVersion': '1.0.0',
+        'CFBundleVersion': info['version'],
         'CFBundleIdentifier' : 'Exchange_File_Type', # 应用包名、唯一标识
-        'includes': ['os', 'tkinter', 'platform', 'PIL', 'moviepy']
+        'includes': ['os', 'tkinter', 'platform', 'PIL', 'moviepy', 'json', 'ttkbootstrap']
     }
 }
 

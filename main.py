@@ -3,6 +3,9 @@ from tkinter import filedialog
 import os
 import platform
 from img_exchange import *
+import json
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
 
 platform_info = platform.uname()
 system = platform_info.system
@@ -10,11 +13,48 @@ architecture = platform_info.machine
 
 print(f'平台信息: \n\t系统: {system}\n\t架构: {architecture}')
 
-root = tk.Tk()
+root = ttk.Window(themename='flatly')
 root.title('文件类型转化')
-root.geometry('600x300')
-root.minsize(600, 300)
-root.maxsize(600, 300)
+w, h = 600, 300
+root.geometry(f'{w}x{h}')
+root.minsize(w, h)
+root.maxsize(w, h)
+
+def issue():
+    os.system('open https://github.com/iewnfod/Convert-file-type/issues')
+
+def about_fn():
+    with open('config.json', 'r') as f:
+        info = json.loads(f.read())
+
+    about = tk.Toplevel()
+    about.title('About')
+    w, h = 300, 150
+    about.geometry(f'{w}x{h}')
+    about.minsize(w, h)
+    about.maxsize(w, h)
+
+    version = info['version']
+    title = info['title']
+    author = info['author']
+
+    title_label = tk.Label(about, text=title, font=('', 20))
+    version_label = tk.Label(about, text=f'版本: {version}')
+    author_label = tk.Label(about, text=f'作者: {author}')
+    error_bt = ttk.Button(about, text='提交错误', command=issue, bootstyle=(PRIMARY, OUTLINE))
+
+    title_label.pack(fill='both', pady=(5, 0))
+    error_bt.pack(side='bottom', fill='both')
+    version_label.pack(side='left', padx=(20, 20))
+    author_label.pack(side='left', padx=(20, 20))
+
+    about.mainloop()
+
+menubar = tk.Menu()
+root.config(menu=menubar)
+about_menu = tk.Menu(menubar)
+about_menu.add_command(label='About', command=about_fn)
+menubar.add_cascade(label='About', menu=about_menu)
 
 if system == 'Darwin':
     # 苹果系统
@@ -22,7 +62,7 @@ if system == 'Darwin':
 elif system == 'win32':
     pandoc_path = 'Resources/pandoc-Windows/pandoc.exe'
 
-class Entry(tk.Entry):
+class Entry(ttk.Entry):
     def __init__(self, master, placeholder, **kw):
         super().__init__(master, **kw)
 
@@ -53,7 +93,7 @@ class Entry(tk.Entry):
 
 file_path = ''
 
-log_area = tk.Text(height=18, width=83)
+log_area = ttk.Text(height=14, width=65)
 log_area.config(state=tk.DISABLED)
 
 def add_log(text):
@@ -107,17 +147,17 @@ def convert():
     else:
         add_log(text=f'转化失败。错误信息: \n{result}')
 
-get_file_bt = tk.Button(root, text='选择文件', command=get_file)
-get_file_bt.pack(fill='both')
+get_file_bt = ttk.Button(root, text='选择文件', command=get_file, bootstyle=(PRIMARY, OUTLINE))
+get_file_bt.pack(fill='both', padx=(1, 1))
 
 log_area.pack(side='bottom', pady=(0, 1))
 
-target_type_label = tk.Label(root, text='目标文件类型: ')
-target_type_label.pack(side='left', padx=(1, 0))
+target_type_label = ttk.Label(root, text='目标文件类型: ')
+target_type_label.pack(side='left', padx=(2, 0))
 target_type_entry = Entry(root, '.docx')
-target_type_entry.pack(side='left')
+target_type_entry.pack(side='left', padx=(0, 1))
 
-convert_bt = tk.Button(root, text='开始转化', command=convert)
-convert_bt.pack(side='left', expand=True, fill='both', pady=(.5, .5))
+convert_bt = ttk.Button(root, text='开始转化', command=convert, bootstyle=(PRIMARY, OUTLINE))
+convert_bt.pack(side='left', expand=True, fill='both', pady=(.5, .5), padx=(0, 1))
 
 root.mainloop()
