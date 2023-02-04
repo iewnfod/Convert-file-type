@@ -50,6 +50,12 @@ def about_fn():
 
     about.mainloop()
 
+def open_locally(path):
+    if system == 'Darwin':
+        os.system(f'open \'{path}\'')
+    elif system == 'win32':
+        os.system(f'\"{path}\"')
+
 menubar = tk.Menu()
 root.config(menu=menubar)
 about_menu = tk.Menu(menubar)
@@ -143,7 +149,7 @@ def convert():
 
     if os.path.exists(f'{target_path}'):
         add_log(text=f'转化成功。文件生成于: {target_path}')
-        os.system(f'open {target_path}')
+        open_locally(target_path)
     else:
         add_log(text=f'转化失败。错误信息: \n{result}')
 
