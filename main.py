@@ -153,6 +153,7 @@ def convert():
     else:
         add_log(text=f'转化失败。错误信息: \n{result}')
 
+# 控件填充
 get_file_bt = ttk.Button(root, text='选择文件', command=get_file, bootstyle=(PRIMARY, OUTLINE))
 get_file_bt.pack(fill='both', padx=(1, 1))
 
