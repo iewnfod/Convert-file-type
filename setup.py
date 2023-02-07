@@ -20,8 +20,8 @@ OPTIONS = {
         'CFBundleDisplayName': info['title'], # 应用显示名
         'CFBundleVersion': info['version'],
         'CFBundleIdentifier': info['identifier'], # 应用包名、唯一标识
-        'includes': ['os', 'tkinter', 'platform', 'PIL', 'moviepy', 'json', 'ttkbootstrap', 'zipfile']
-    }
+    },
+    'includes': ['os', 'tkinter', 'platform', 'PIL', 'moviepy', 'json', 'ttkbootstrap', 'zipfile']
 }
 
 setup(
