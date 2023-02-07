@@ -6,6 +6,7 @@ from img_exchange import *
 import json
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
+from support import *
 
 platform_info = platform.uname()
 system = platform_info.system
@@ -62,11 +63,26 @@ about_menu = tk.Menu(menubar)
 about_menu.add_command(label='About', command=about_fn)
 menubar.add_cascade(label='About', menu=about_menu)
 
-if system == 'Darwin':
-    # 苹果系统
-    pandoc_path = 'Resources/pandoc-MacOS/bin/pandoc'
-elif system == 'win32':
-    pandoc_path = 'Resources/pandoc-Windows/pandoc.exe'
+pandoc_path = ''
+
+def initialize_pandoc():
+    global pandoc_path
+# pandoc 路径设置
+    if system == 'Darwin':
+        # 苹果系统
+        if os.path.exists('Resources/pandoc-MacOS/bin/pandoc'):
+            pandoc_path = 'Resources/pandoc-MacOS/bin/pandoc'
+        else:
+            unzip('Resources/pandoc-MacOS.zip', 'Resources')
+            os.system('chmod +x Resources/pandoc-MacOS/bin/pandoc')
+
+    elif system == 'win32':
+        if os.path.exists('Resources/pandoc-Windows/pandoc.exe'):
+            pandoc_path = 'Resources/pandoc-Windows/pandoc.exe'
+        else:
+            unzip('Resources/pandoc-Windows.zip', 'Resources')
+
+initialize_pandoc()
 
 class Entry(ttk.Entry):
     def __init__(self, master, placeholder, **kw):
