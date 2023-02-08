@@ -12,7 +12,7 @@ with open('config.json', 'r') as f:
     info = json.loads(f.read())
 
 APP = ['main.py']
-DATA_FILES = ['icon.icns', 'Resources', 'config.json', 'img_exchange.py', 'support.py']
+DATA_FILES = ['icon.icns', 'Resources', 'config.json', 'img_exchange.py', 'support.py', 'ui.py']
 OPTIONS = {
     'iconfile':'icon.icns',
     'plist': {
@@ -21,7 +21,7 @@ OPTIONS = {
         'CFBundleVersion': info['version'],
         'CFBundleIdentifier': info['identifier'], # 应用包名、唯一标识
     },
-    'includes': ['os', 'tkinter', 'platform', 'PIL', 'moviepy', 'json', 'ttkbootstrap', 'zipfile']
+    'includes': ['os', 'tkinter', 'platform', 'PIL', 'moviepy', 'json', 'ttkbootstrap', 'zipfile', 'sys']
 }
 
 setup(

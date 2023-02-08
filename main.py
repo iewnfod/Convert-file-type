@@ -45,6 +45,7 @@ def convert():
     else:
         result = os.system(f'{pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
 
+    # 判断目标路径是否有所想要的文件，以验证文件是否转化成功
     if os.path.exists(f'{target_path}'):
         root.add_log(text=f'转化成功。文件生成于: {target_path}')
         root.open_locally(target_path)
@@ -62,6 +63,7 @@ def initialize_pandoc():
         else:
             unzip('Resources/pandoc-MacOS.zip', 'Resources')
             os.system('chmod +x Resources/pandoc-MacOS/bin/pandoc')
+            restart()
 
     elif system == 'win32':
         if os.path.exists('Resources/pandoc-Windows/pandoc.exe'):
