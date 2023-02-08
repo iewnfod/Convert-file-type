@@ -70,6 +70,7 @@ def initialize_pandoc():
             pandoc_path = 'Resources/pandoc-Windows/pandoc.exe'
         else:
             unzip('Resources/pandoc-Windows.zip', 'Resources')
+            restart()
 
 
 if __name__ == '__main__':
