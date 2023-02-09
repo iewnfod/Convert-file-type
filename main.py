@@ -43,7 +43,10 @@ def convert():
         result = to_video(root.file_path, target_path)
 
     else:
-        result = os.system(f'{pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
+        if system == 'Darwin':
+            result = os.system(f'{pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
+        elif system == 'Windows' or system == 'win32':
+            result = os.system(f'powershell; {pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
 
     # 判断目标路径是否有所想要的文件，以验证文件是否转化成功
     if os.path.exists(f'{target_path}'):
@@ -65,13 +68,13 @@ def initialize_pandoc():
             os.system('chmod +x Resources/pandoc-MacOS/bin/pandoc')
             restart()
 
-    elif system == 'win32':
+    elif system == 'win32' or system == 'Windows':
         if os.path.exists('Resources/pandoc-Windows/pandoc.exe'):
-            pandoc_path = 'Resources/pandoc-Windows/pandoc.exe'
+            pandoc_path = os.path.join(os.getcwd(), 'Resources\pandoc-Windows\pandoc.exe')
         else:
             unzip('Resources/pandoc-Windows.zip', 'Resources')
-            restart()
 
+    print('Pandoc Path: ', pandoc_path)
 
 if __name__ == '__main__':
 

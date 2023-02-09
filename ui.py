@@ -41,7 +41,10 @@ class main_window(ttk.Window):
         super().__init__(themename=themename, *args, **kwargs)
         self.system = system
         self.title('文件类型转化')
-        w, h = 600, 300
+        if self.system == 'Darwin':
+            w, h = 600, 300
+        elif self.system == 'Windows' or self.system == 'win32':
+            w, h = 600, 550
         self.geometry(f'{w}x{h}')
         self.minsize(w, h)
         self.maxsize(w, h)
@@ -79,8 +82,8 @@ class main_window(ttk.Window):
     def open_locally(self, path):
         if self.system == 'Darwin':
             os.system(f'open \'{path}\'')
-        elif self.system == 'win32':
-            os.system(f'\"{path}\"')
+        elif self.system == 'win32' or self.system == 'Windows':
+            os.system(f'explorer file:\\\\\"{path}\"')
 
 
 def init_menubar(root):
