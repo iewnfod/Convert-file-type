@@ -4,7 +4,10 @@ import moviepy.editor as mp
 image_type = {
     '.jpg',
     '.jpeg',
-    '.png'
+    '.png',
+    '.bmp',
+    '.ppm',
+    '.tiff'
 }
 def image_convert(file_path, target_path):
     img = Image.open(file_path)
