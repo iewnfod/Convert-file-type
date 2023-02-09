@@ -13,9 +13,6 @@ print(f'平台信息: \n\t系统: {system}\n\t架构: {architecture}')
 
 
 def convert():
-    if root.file_path == '':
-        root.add_log('未选择文件')
-        return
 
     target_type = root.target_type_entry.get()
     if len(target_type) == 0 or target_type == '.':

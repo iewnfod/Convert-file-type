@@ -7,7 +7,41 @@ image_type = {
     '.png',
     '.bmp',
     '.ppm',
-    '.tiff'
+    '.tiff',
+    '.dds',
+    '.dib',
+    '.eps',
+    '.ps',
+    '.fit',
+    '.fits',
+    '.h5',
+    '.hdf',
+    '.icns',
+    '.ico',
+    '.im',
+    '.jfif',
+    '.jpe',
+    '.j2c',
+    '.j2k',
+    '.jp2',
+    '.jpc',
+    '.jpf',
+    '.jpx',
+    '.msp',
+    '.pcx',
+    '.pbm',
+    '.pgm',
+    '.pnm',
+    '.ppm',
+    '.bw',
+    '.rgb',
+    '.rgba',
+    '.sgi',
+    '.wepg',
+    '.tif',
+    '.emf',
+    '.wmf',
+    '.xbm',
 }
 def image_convert(file_path, target_path):
     img = Image.open(file_path)
@@ -28,7 +62,7 @@ def to_gif(file_path, target_path):
     clip.write_gif(target_path)
 
 video_type = {
-    '.mp4'
+    '.mp4',
 }
 def to_video(file_path, target_path):
     clip = mp.VideoFileClip(file_path)

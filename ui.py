@@ -8,6 +8,7 @@ import os
 class main_window(ttk.Window):
     def __init__(self, system, convert, themename, *args, **kwargs) -> None:
         super().__init__(themename=themename, *args, **kwargs)
+        self.file_path = ''
         self.system = system
         self.title('文件类型转化')
         if self.system == 'Darwin':
@@ -39,7 +40,7 @@ class main_window(ttk.Window):
 
 
     def get_file(self):
-        self.file_path = filedialog.askopenfilename(title='请选择一个文件', filetypes=[])
+        self.file_path = filedialog.askopenfilename(title='请选择文件', filetypes=[])
         self.add_log('已选中文件: '+self.file_path)
 
 
