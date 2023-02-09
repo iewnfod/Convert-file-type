@@ -5,37 +5,6 @@ import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import os
 
-def about_fn():
-    with open('config.json', 'r') as f:
-        info = json.loads(f.read())
-
-    about = tk.Toplevel()
-    about.title('About')
-    w, h = 300, 150
-    about.geometry(f'{w}x{h}')
-    about.minsize(w, h)
-    about.maxsize(w, h)
-
-    version = info['version']
-    title = info['title']
-    author = info['author']
-
-    title_label = tk.Label(about, text=title, font=('', 20))
-    version_label = tk.Label(about, text=f'版本: {version}')
-    author_label = tk.Label(about, text=f'作者: {author}')
-    error_bt = ttk.Button(about, text='提交错误', command=issue, bootstyle=(PRIMARY, OUTLINE))
-
-    title_label.pack(fill='both', pady=(5, 0))
-    error_bt.pack(side='bottom', fill='both')
-    version_label.pack(side='left', padx=(20, 20))
-    author_label.pack(side='left', padx=(20, 20))
-
-    about.mainloop()
-
-def issue():
-    os.system('open https://github.com/iewnfod/Convert-file-type/issues')
-
-
 class main_window(ttk.Window):
     def __init__(self, system, convert, themename, *args, **kwargs) -> None:
         super().__init__(themename=themename, *args, **kwargs)
@@ -44,7 +13,9 @@ class main_window(ttk.Window):
         if self.system == 'Darwin':
             w, h = 600, 300
         elif self.system == 'Windows' or self.system == 'win32':
-            w, h = 600, 550
+            w, h = 600, 545
+        else:
+            w, h = 600, 400
         self.geometry(f'{w}x{h}')
         self.minsize(w, h)
         self.maxsize(w, h)
@@ -86,11 +57,50 @@ class main_window(ttk.Window):
             os.system(f'explorer file:\\\\\"{path}\"')
 
 
-def init_menubar(root):
+    def about_fn(self):
+        with open('config.json', 'r') as f:
+            info = json.loads(f.read())
+
+        about = tk.Toplevel()
+        about.title('About')
+        if self.system == 'Darwin':
+            w, h = 250, 100
+        elif self.system == 'win32' or self.system == 'Windows':
+            w, h = 500, 200
+        else:
+            w, h = 500, 300
+        about.geometry(f'{w}x{h}')
+        about.minsize(w, h)
+        about.maxsize(w, h)
+
+        version = info['version']
+        title = info['title']
+        author = info['author']
+
+        title_label = tk.Label(about, text=title, font=('', 20))
+        version_label = tk.Label(about, text=f'版本: {version}')
+        author_label = tk.Label(about, text=f'作者: {author}')
+        error_bt = ttk.Button(about, text='提交错误', command=self.issue, bootstyle=(PRIMARY, OUTLINE))
+
+        title_label.pack(fill='both', pady=(5, 0))
+        error_bt.pack(side='bottom', fill='both')
+        version_label.pack(side='left', padx=(20, 20))
+        author_label.pack(side='left', padx=(20, 20))
+
+        about.mainloop()
+
+    def issue(self):
+        if self.system == 'Darwin':
+            os.system('open https://github.com/iewnfod/Convert-file-type/issues')
+        elif self.system == 'win32' or self.system == 'Windows':
+            os.system('explorer https://github.com/iewnfod/Convert-file-type/issues')
+
+
+def init_menubar(root:main_window):
     menubar = tk.Menu()
     root.config(menu=menubar)
     about_menu = tk.Menu(menubar)
-    about_menu.add_command(label='About', command=about_fn)
+    about_menu.add_command(label='About', command=root.about_fn)
     menubar.add_cascade(label='About', menu=about_menu)
 
 
