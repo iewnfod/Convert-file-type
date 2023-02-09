@@ -63,6 +63,11 @@ def to_gif(file_path, target_path):
 
 video_type = {
     '.mp4',
+    '.wmv',
+    '.rm',
+    '.avi',
+    '.flv',
+    '.webm'
 }
 def to_video(file_path, target_path):
     clip = mp.VideoFileClip(file_path)
