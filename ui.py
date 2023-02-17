@@ -11,7 +11,7 @@ class main_window(ttk.Window):
         self.file_path = ''
         self.system = system
         self.title('文件类型转化')
-        self.iconbitmap('icon.icns')
+        # self.iconbitmap('icon.icns')
         if self.system == 'Darwin':
             w, h = 600, 300
         elif self.system == 'Windows' or self.system == 'win32':
