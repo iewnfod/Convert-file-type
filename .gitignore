@@ -5,3 +5,5 @@ __pycache__/
 pandoc-Windows/
 pandoc-MacOS/
 __MACOS_X__
+build/
+dist/
