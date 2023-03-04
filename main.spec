@@ -66,13 +66,3 @@ exe = EXE(
     entitlements_file=None,
     icon='icon.icns'
 )
-
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.zipfiles,
-    a.datas,
-    strip = False,
-    upx = True,
-    name = 'Convert_File_Type.app'
-)
