@@ -14,14 +14,14 @@ class main_window(ttk.Window):
         if self.system == 'Darwin':
             w, h = 600, 300
         elif self.system == 'Windows' or self.system == 'win32':
-            w, h = 600, 545
+            w, h = 1000, 545
         else:
             w, h = 600, 400
         self.geometry(f'{w}x{h}')
         self.minsize(w, h)
         self.maxsize(w, h)
 
-        self.log_area = ttk.Text(height=14, width=65)
+        self.log_area = ttk.Text(height=14, width=75)
         self.log_area.config(state=tk.DISABLED)
 
         # 控件填充
