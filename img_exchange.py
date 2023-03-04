@@ -66,7 +66,8 @@ def to_gif(file_path, target_path):
 
 video_type = {
     '.mp4',
-    '.webm'
+    '.webm',
+    '.mp3'
 }
 def to_video(file_path, target_path):
     try:
