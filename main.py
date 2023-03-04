@@ -63,13 +63,14 @@ def initialize_pandoc():
         else:
             unzip('Resources/pandoc-MacOS.zip', 'Resources')
             os.system('chmod +x Resources/pandoc-MacOS/bin/pandoc')
-            restart()
+            initialize_pandoc()
 
     elif system == 'win32' or system == 'Windows':
         if os.path.exists('Resources/pandoc-Windows/pandoc.exe'):
             pandoc_path = os.path.join(os.getcwd(), 'Resources\pandoc-Windows\pandoc.exe')
         else:
             unzip('Resources/pandoc-Windows.zip', 'Resources')
+            initialize_pandoc()
 
     print('Pandoc Path: ', pandoc_path)
 

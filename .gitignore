@@ -1,0 +1,7 @@
+.DS_Store
+.idea/
+.vscode/
+__pycache__/
+pandoc-Windows/
+pandoc-MacOS/
+__MACOS_X__

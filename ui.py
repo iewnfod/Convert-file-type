@@ -100,9 +100,9 @@ class main_window(ttk.Window):
 def init_menubar(root:main_window):
     menubar = tk.Menu()
     root.config(menu=menubar)
-    about_menu = tk.Menu(menubar)
-    about_menu.add_command(label='About', command=root.about_fn)
-    menubar.add_cascade(label='About', menu=about_menu)
+    main_menu = tk.Menu(menubar)
+    main_menu.add_command(label='About', command=root.about_fn)
+    menubar.add_cascade(label='Convert File Type', menu=main_menu)
 
 
 class Entry(ttk.Entry):
