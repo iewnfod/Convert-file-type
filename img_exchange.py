@@ -57,19 +57,21 @@ gif_type = {
     '.gif'
 }
 def to_gif(file_path, target_path):
-    clip = mp.VideoFileClip(file_path)
+    try:
+        clip = mp.VideoFileClip(file_path)
 
-    clip.write_gif(target_path)
+        clip.write_gif(target_path)
+    except Exception as err:
+        return err
 
 video_type = {
     '.mp4',
-    '.wmv',
-    '.rm',
-    '.avi',
-    '.flv',
     '.webm'
 }
 def to_video(file_path, target_path):
-    clip = mp.VideoFileClip(file_path)
+    try:
+        clip = mp.VideoFileClip(file_path)
 
-    clip.write_videofile(target_path)
+        clip.write_videofile(target_path)
+    except Exception as err:
+        return err
