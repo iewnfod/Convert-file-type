@@ -1,6 +1,7 @@
 from PIL import Image
 import moviepy.editor as mp
 
+# 图片转换 使用 PIL.Image
 image_type = {
     '.jpg',
     '.jpeg',
@@ -53,6 +54,7 @@ def image_convert(file_path, target_path):
     except Exception as err:
         return err
 
+# 转换成gif
 gif_type = {
     '.gif'
 }
@@ -64,6 +66,7 @@ def to_gif(file_path, target_path):
     except Exception as err:
         return err
 
+# 转换成视频
 video_type = {
     '.mp4',
     '.webm',
