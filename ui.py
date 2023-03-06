@@ -1,3 +1,6 @@
+# 停用 tkinter !!!
+# 转而使用 PySide6 : qtui.py
+
 import tkinter as tk
 from tkinter import filedialog
 import json
@@ -6,7 +9,8 @@ from ttkbootstrap.constants import *
 import os
 
 class main_window(ttk.Window):
-    def __init__(self, system, convert, themename, *args, **kwargs) -> None:
+    def __init__(self, system, convert, *args, **kwargs) -> None:
+        themename = 'flatly'
         super().__init__(themename=themename, *args, **kwargs)
         self.file_path = ''
         self.system = system

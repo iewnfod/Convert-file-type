@@ -2,7 +2,8 @@ import os
 import platform
 from img_exchange import *
 from support import *
-from ui import *
+from qtui import *
+from PySide6.QtWidgets import *
 
 platform_info = platform.uname()
 system = platform_info.system
@@ -14,7 +15,7 @@ print(f'平台信息: \n\t系统: {system}\n\t架构: {architecture}')
 
 def convert():
 
-    target_type = root.target_type_entry.get()
+    target_type = root.get_target_file_type()
     if len(target_type) == 0 or target_type == '.':
         root.add_log('请输入正确的文件类型')
         return
@@ -27,7 +28,6 @@ def convert():
     target_path = f'{file_name}{target_type}'
 
     root.add_log(f'开始转化: {root.file_path} -> {target_path}')
-    root.update()
 
     # 选择文件类型并转化
     if target_type in image_type:
@@ -75,13 +75,14 @@ def initialize_pandoc():
     print('Pandoc Path: ', pandoc_path)
 
 
-# 初始化 pandoc
-initialize_pandoc()
-
-# 初始化窗口
-root = main_window(system, convert, 'flatly')
-
-# 初始化 menubar
-init_menubar(root)
-
-root.mainloop()
+if __name__ == '__main__':
+    # 初始化 pandoc
+    initialize_pandoc()
+    # 初始化软件
+    app = QApplication([])
+    # 初始化ui
+    root = main_window(system, convert)
+    # ui显示
+    root.show()
+    # 软件运行
+    app.exec()

@@ -1,4 +1,5 @@
 from PySide6.QtWidgets import *
+from PySide6.QtGui import QAction
 import os
 
 class main_window(QMainWindow):
@@ -10,6 +11,8 @@ class main_window(QMainWindow):
 
         # 加载 ui
         self.ui_init()
+        # 加载 menubar
+        self.menubar_init()
 
     def ui_init(self):
         self.w = 500
@@ -29,8 +32,8 @@ class main_window(QMainWindow):
         # 目标类型，输入框
         self.target_file_entry = QLineEdit(self)
         self.target_file_entry.setPlaceholderText('.docx')
-        self.target_file_entry.move(110, 40)
-        self.target_file_entry.resize(100, 30)
+        self.target_file_entry.move(110, 45)
+        self.target_file_entry.resize(100, 25)
         # 转化按钮
         self.convert_bt = QPushButton('开始转化', self)
         self.convert_bt.move(220, 35)
@@ -40,19 +43,47 @@ class main_window(QMainWindow):
         self.log_area = QTextEdit(self)
         self.log_area.move(10, 80)
         self.log_area.resize(480, 210)
+        self.log_area.setEnabled(False)
+        self.log_area.setStyleSheet('color: #000000')
 
-    def add_log(message):
-        pass
+    def add_log(self, text):
+        print(text)
+        self.log_area.setEnabled(True)
+        self.log_area.insertPlainText(str(text) + '\n\n')
+        self.log_area.setEnabled(False)
+        self.update()
 
     def get_file_path(self):
-        path = QFileDialog(self, '选择文件').getOpenFileUrl()
+        path = QFileDialog(self, '选择文件').getOpenFileUrl()[0].path()
         if os.path.isfile(path):
             self.file_path = path
             self.add_log(f'已选中文件: {self.file_path}')
         else:
             self.add_log(f'请正确选择文件')
 
-app = QApplication([])
-w = main_window()
-w.show()
-app.exec()
+    def open_locally(self, path):
+        if self.system == 'Darwin':
+            os.system(f'open \'{path}\'')
+        elif self.system == 'win32' or self.system == 'Windows':
+            os.system(f'explorer file:\\\\\"{path}\"')
+
+    def issue(self):
+        if self.system == 'Darwin':
+            os.system('open https://github.com/iewnfod/Convert-file-type/issues')
+        elif self.system == 'win32' or self.system == 'Windows':
+            os.system('explorer https://github.com/iewnfod/Convert-file-type/issues')
+
+    def menubar_init(self):
+        about_action = QAction(text='About', parent=self)
+        about_action.triggered.connect(about)
+
+        menu = self.menuBar()
+        main_menu = menu.addMenu('Main')
+        main_menu.addAction(about_action)
+
+    def get_target_file_type(self):
+        text = self.target_file_entry.text()
+        return text if text else self.target_file_entry.placeholderText()
+
+def about():
+    print('about')
