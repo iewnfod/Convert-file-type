@@ -75,15 +75,13 @@ def initialize_pandoc():
     print('Pandoc Path: ', pandoc_path)
 
 
-if __name__ == '__main__':
+# 初始化 pandoc
+initialize_pandoc()
 
-    # 初始化 pandoc
-    initialize_pandoc()
+# 初始化窗口
+root = main_window(system, convert, 'flatly')
 
-    # 初始化窗口
-    root = main_window(system, convert, 'flatly')
+# 初始化 menubar
+init_menubar(root)
 
-    # 初始化 menubar
-    init_menubar(root)
-
-    root.mainloop()
+root.mainloop()
