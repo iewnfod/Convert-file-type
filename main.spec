@@ -5,11 +5,17 @@ block_cipher = None
 
 
 a = Analysis(
-    ['main.py', 'ui.py', 'support.py', 'img_exchange.py'],
-    pathex=[],
+    ['__init__.py', 'main.py', 'ui.py', 'support.py', 'img_exchange.py'],
+    pathex=['/Users/Muyunxi/Desktop/desktop/Developer/Convert-File-Type'],
     binaries=[],
-    datas=[],
-    hiddenimports=[],
+    datas=[
+        ('config.json', '.'),
+        ('LICENSE', '.'),
+        ('README.md', '.'),
+        ('Resources/pandoc-MacOS.zip', 'Resources'),
+        ('Resources/pandoc-Windows.zip', 'Resources')
+    ],
+    hiddenimports=['moviepy.audio.fx.all.audio_fadein'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -19,27 +25,6 @@ a = Analysis(
     cipher=block_cipher,
     noarchive=False,
 )
-
-def extra_datas(mydir):
-    def rec_glob(p, files):
-        import os
-        import glob
-        for d in glob.glob(p):
-            if os.path.isfile(d):
-                files.append(d)
-            rec_glob("%s/*" % d, files)
-    files = []
-    rec_glob("%s/*" % mydir, files)
-    extra_data = []
-    for f in files:
-        extra_data.append((f, f, 'DATA'))
-
-    return extra_data
-
-a.datas += extra_datas('Resources')
-a.datas += extra_datas('config.json')
-a.datas += extra_datas('README.md')
-a.datas += extra_datas('LICENSE')
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
@@ -56,7 +41,6 @@ exe = EXE(
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
     disable_windowed_traceback=False,
@@ -65,4 +49,24 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
     icon='icon.icns'
+)
+
+app = BUNDLE(
+    exe,
+    name='Convert File Type.app',
+    icon='icon.icns',
+    bundle_identifier='Convert_File_Type',
+    version='1.0.0',
+    info_plist={
+            'NSPrincipalClass': 'NSApplication',
+            'NSAppleScriptEnabled': False,
+            'CFBundleDocumentTypes': [
+                {
+                    'CFBundleTypeName': 'Convert File Type',
+                    'CFBundleTypeIconFile': 'icon.icns',
+                    'LSItemContentTypes': ['com.iewnfod.convert_file_type'],
+                    'LSHandlerRank': 'Iewnfod'
+                }
+            ]
+        },
 )
