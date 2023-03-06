@@ -12,7 +12,9 @@ class main_window(QMainWindow):
         # 加载 ui
         self.ui_init()
         # 加载 menubar
-        self.menubar_init()
+        self.menubar_init()  # 目前还有问题...
+        # 加载 qss
+        self.qss_init()
 
     def ui_init(self):
         self.w = 500
@@ -22,8 +24,8 @@ class main_window(QMainWindow):
         self.setMaximumSize(self.w, self.h)
         # 文件选择
         self.get_file_path_bt = QPushButton('选择文件', self)
-        self.get_file_path_bt.move(10, 0)
-        self.get_file_path_bt.resize(480, 40)
+        self.get_file_path_bt.move(0, 0)
+        self.get_file_path_bt.resize(500, 40)
         self.get_file_path_bt.clicked.connect(self.get_file_path)
         # 目标类型，label
         self.target_file_enter_label = QLabel('目标文件类型: ', self)
@@ -32,19 +34,20 @@ class main_window(QMainWindow):
         # 目标类型，输入框
         self.target_file_entry = QLineEdit(self)
         self.target_file_entry.setPlaceholderText('.docx')
-        self.target_file_entry.move(110, 45)
+        self.target_file_entry.move(100, 45)
         self.target_file_entry.resize(100, 25)
         # 转化按钮
         self.convert_bt = QPushButton('开始转化', self)
-        self.convert_bt.move(220, 35)
-        self.convert_bt.resize(270, 40)
+        self.convert_bt.move(210, 37)
+        self.convert_bt.resize(290, 40)
         self.convert_bt.clicked.connect(self.convert)
         # 日志区域
         self.log_area = QTextEdit(self)
-        self.log_area.move(10, 80)
-        self.log_area.resize(480, 210)
+        self.log_area.move(0, 80)
+        self.log_area.resize(500, 220)
         self.log_area.setEnabled(False)
-        self.log_area.setStyleSheet('color: #000000')
+
+        print('FINISH LOADING UI')
 
     def add_log(self, text):
         print(text)
@@ -81,9 +84,18 @@ class main_window(QMainWindow):
         main_menu = menu.addMenu('Main')
         main_menu.addAction(about_action)
 
+        print('FINISH LOADING MENUBAR')
+
     def get_target_file_type(self):
         text = self.target_file_entry.text()
         return text if text else self.target_file_entry.placeholderText()
+
+    def qss_init(self):
+        with open('main.qss', 'r', encoding='UTF-8') as f:
+            qss = f.read()
+        self.setStyleSheet(qss)
+
+        print('FINISH LOADING QSS')
 
 def about():
     print('about')
