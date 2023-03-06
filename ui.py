@@ -21,7 +21,8 @@ class main_window(ttk.Window):
         self.minsize(w, h)
         self.maxsize(w, h)
 
-        self.log_area = ttk.Text(height=14, width=75)
+        # 日志输出
+        self.log_area = ttk.Text(self, height=14, width=75)
         self.log_area.config(state=tk.DISABLED)
 
         # 控件填充
