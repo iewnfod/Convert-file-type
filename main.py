@@ -27,23 +27,25 @@ def convert():
 
     target_path = f'{file_name}{target_type}'
 
-    root.add_log(f'开始转化: {root.file_path} -> {target_path}')
+    if file_type != target_type:  # 如果不一样则需要转化
 
-    # 选择文件类型并转化
-    if target_type in image_type:
-        result = image_convert(root.file_path, target_path)
+        root.add_log(f'开始转化: {root.file_path} -> {target_path}')
 
-    elif target_type in gif_type:
-        result = to_gif(root.file_path, target_path)
+        # 选择文件类型并转化
+        if target_type in image_type:
+            result = image_convert(root.file_path, target_path)
 
-    elif target_type in video_type:
-        result = to_video(root.file_path, target_path)
+        elif target_type in gif_type:
+            result = to_gif(root.file_path, target_path)
 
-    else:
-        if system == 'Darwin':
-            result = os.system(f'{pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
-        elif system == 'Windows' or system == 'win32':
-            result = os.system(f'powershell; {pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
+        elif target_type in video_type:
+            result = to_video(root.file_path, target_path)
+
+        else:
+            if system == 'Darwin':
+                result = os.system(f'{pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
+            elif system == 'Windows' or system == 'win32':
+                result = os.system(f'powershell; {pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
 
     # 判断目标路径是否有所想要的文件，以验证文件是否转化成功
     if os.path.exists(f'{target_path}'):
@@ -72,6 +74,7 @@ def initialize_pandoc():
             unzip('Resources/pandoc-Windows.zip', 'Resources')
             initialize_pandoc()
 
+    print('\033[1mFINISH LOADING PANDOC\033[0m')
     print('Pandoc Path: ', pandoc_path)
 
 

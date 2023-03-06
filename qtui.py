@@ -47,7 +47,7 @@ class main_window(QMainWindow):
         self.log_area.resize(500, 220)
         self.log_area.setEnabled(False)
 
-        print('FINISH LOADING UI')
+        print('\033[1mFINISH LOADING UI\033[0m')
 
     def add_log(self, text):
         print(text)
@@ -84,7 +84,7 @@ class main_window(QMainWindow):
         main_menu = menu.addMenu('Main')
         main_menu.addAction(about_action)
 
-        print('FINISH LOADING MENUBAR')
+        print('\033[1mFINISH LOADING MENUBAR\033[0m')
 
     def get_target_file_type(self):
         text = self.target_file_entry.text()
@@ -95,7 +95,7 @@ class main_window(QMainWindow):
             qss = f.read()
         self.setStyleSheet(qss)
 
-        print('FINISH LOADING QSS')
+        print('\033[1mFINISH LOADING QSS\033[0m')
 
 def about():
     print('about')
