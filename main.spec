@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(
-    ['__init__.py', 'main.py', 'ui.py', 'support.py', 'img_exchange.py'],
+    ['main.py', 'support.py', 'img_exchange.py', 'qtui.py'],
     pathex=['/Users/Muyunxi/Desktop/desktop/Developer/Convert-File-Type'],
     binaries=[],
     datas=[
@@ -13,7 +13,8 @@ a = Analysis(
         ('LICENSE', '.'),
         ('README.md', '.'),
         ('Resources/pandoc-MacOS.zip', 'Resources'),
-        ('Resources/pandoc-Windows.zip', 'Resources')
+        ('Resources/pandoc-Windows.zip', 'Resources'),
+        ('main.qss', '.')
     ],
     hiddenimports=['moviepy.audio.fx.all.audio_fadein'],
     hookspath=[],
@@ -58,15 +59,15 @@ app = BUNDLE(
     bundle_identifier='Convert_File_Type',
     version='1.0.0',
     info_plist={
-            'NSPrincipalClass': 'NSApplication',
-            'NSAppleScriptEnabled': False,
-            'CFBundleDocumentTypes': [
-                {
-                    'CFBundleTypeName': 'Convert File Type',
-                    'CFBundleTypeIconFile': 'icon.icns',
-                    'LSItemContentTypes': ['com.iewnfod.convert_file_type'],
-                    'LSHandlerRank': 'Iewnfod'
-                }
-            ]
-        },
+        'NSPrincipalClass': 'NSApplication',
+        'NSAppleScriptEnabled': False,
+        'CFBundleDocumentTypes': [
+            {
+                'CFBundleTypeName': 'Convert File Type',
+                'CFBundleTypeIconFile': 'icon.icns',
+                'LSItemContentTypes': ['com.iewnfod.convert_file_type'],
+                'LSHandlerRank': 'Iewnfod'
+            }
+        ]
+    },
 )
