@@ -7,3 +7,4 @@ pandoc-MacOS/
 __MACOSX/
 build/
 dist/
+*.docx
