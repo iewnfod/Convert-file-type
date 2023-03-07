@@ -1,10 +1,13 @@
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QAction
 import os
+import json
+import platform
 
 class main_window(QMainWindow):
     def __init__(self, system, convert, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.setWindowTitle('Convert File Type')
         self.file_path = ''
         self.system = system
         self.convert = convert
@@ -12,38 +15,38 @@ class main_window(QMainWindow):
         # 加载 ui
         self.ui_init()
         # 加载 menubar
-        self.menubar_init()  # 目前还有问题...
+        # self.menubar_init()  # 目前还有问题...
         # 加载 qss
         self.qss_init()
 
     def ui_init(self):
         self.w = 500
-        self.h = 300
+        self.h = 305
         self.resize(self.w, self.h)
         self.setMinimumSize(self.w, self.h)
         self.setMaximumSize(self.w, self.h)
         # 文件选择
         self.get_file_path_bt = QPushButton('选择文件', self)
-        self.get_file_path_bt.move(0, 0)
+        self.get_file_path_bt.move(0, 5)
         self.get_file_path_bt.resize(500, 40)
         self.get_file_path_bt.clicked.connect(self.get_file_path)
         # 目标类型，label
         self.target_file_enter_label = QLabel('目标文件类型: ', self)
-        self.target_file_enter_label.move(10, 40)
+        self.target_file_enter_label.move(10, 45)
         self.target_file_enter_label.resize(100, 30)
         # 目标类型，输入框
         self.target_file_entry = QLineEdit(self)
         self.target_file_entry.setPlaceholderText('.docx')
-        self.target_file_entry.move(100, 45)
+        self.target_file_entry.move(100, 50)
         self.target_file_entry.resize(100, 25)
         # 转化按钮
         self.convert_bt = QPushButton('开始转化', self)
-        self.convert_bt.move(210, 37)
+        self.convert_bt.move(210, 42)
         self.convert_bt.resize(290, 40)
         self.convert_bt.clicked.connect(self.convert)
         # 日志区域
         self.log_area = QTextEdit(self)
-        self.log_area.move(0, 80)
+        self.log_area.move(0, 85)
         self.log_area.resize(500, 220)
         self.log_area.setEnabled(False)
 
@@ -70,12 +73,6 @@ class main_window(QMainWindow):
         elif self.system == 'win32' or self.system == 'Windows':
             os.system(f'explorer file:\\\\\"{path}\"')
 
-    def issue(self):
-        if self.system == 'Darwin':
-            os.system('open https://github.com/iewnfod/Convert-file-type/issues')
-        elif self.system == 'win32' or self.system == 'Windows':
-            os.system('explorer https://github.com/iewnfod/Convert-file-type/issues')
-
     def menubar_init(self):
         about_action = QAction(text='About', parent=self)
         about_action.triggered.connect(about)
@@ -97,5 +94,59 @@ class main_window(QMainWindow):
 
         print('\033[1mFINISH LOADING QSS\033[0m')
 
+
+class about_window(QMainWindow):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.setWindowTitle('About')
+
+        self.system = platform.uname().system
+
+        with open('config.json', 'r') as f:
+            self.data = json.loads(f.read())
+
+        self.ui_init()
+
+    def ui_init(self):
+        # 加载 qss
+        with open('main.qss', 'r', encoding='UTF-8') as f:
+            qss = f.read()
+        self.setStyleSheet(qss)
+
+        # main
+        self.w = 200
+        self.h = 150
+        self.resize(self.w, self.h)
+        self.setMaximumSize(self.w, self.h)
+        self.setMinimumSize(self.w, self.h)
+
+        # 标题
+        self.title = QLabel('Convert File Type', self)
+        self.title.setStyleSheet('font-size: 30px')
+        self.title.move(0, 0)
+        self.title.resize(200, 50)
+
+        # 作者，版本
+        self.author = QLabel(f'Author: {self.data["author"]}', self)
+        self.version = QLabel(f'Version: {self.data["version"]}', self)
+        self.author.move(0, 60)
+        self.author.resize(100, 30)
+        self.version.move(30, 60)
+        self.version.resize(100, 30)
+
+        # 提交错误
+        self.issue_bt = QPushButton('提交错误', self)
+        self.issue_bt.move(0, 100)
+        self.issue_bt.resize(200, 40)
+        self.issue_bt.clicked.connect(self.issue)
+
+    def issue(self):
+        if self.system == 'Darwin':
+            os.system('open https://github.com/iewnfod/Convert-file-type/issues')
+        elif self.system == 'win32' or self.system == 'Windows':
+            os.system('explorer https://github.com/iewnfod/Convert-file-type/issues')
+
+
 def about():
-    print('about')
+    about_win = about_window()
+    about_win.show()
