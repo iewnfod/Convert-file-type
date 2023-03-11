@@ -12,5 +12,5 @@
 
 ## UI
 * Qt: PySide6 - qtui.py
-*原来使用的是 tkinter - ui.py , 后来改为了Qt6*
-*ui.py 已经不可用，因为 main.py 中部分函数的调用已经为了适配 Qt 而修改了*
+* *原来使用的是 tkinter - ui.py , 后来改为了 Qt6*
+* *ui.py 已经不可用，因为 main.py 中部分函数的调用已经为了适配 Qt 而修改了*
