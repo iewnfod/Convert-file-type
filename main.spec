@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(
-    ['main.py', 'support.py', 'img_exchange.py', 'qtui.py'],
+    ['main.py', 'support.py', 'img_exchange.py', 'qtui.py', 'constants.py'],
     pathex=['/Users/Muyunxi/Desktop/desktop/Developer/Convert-File-Type'],
     binaries=[],
     datas=[
