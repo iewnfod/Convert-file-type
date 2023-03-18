@@ -27,7 +27,6 @@ class MainWindow(QMainWindow):
     def _ui_init(self):
         """
         初始化 ui
-
         """
 
         self.w = 500
@@ -64,7 +63,7 @@ class MainWindow(QMainWindow):
 
     def add_log(self, text: str):
         """
-        添加一条日志
+        向 stdout 以及 log_area 添加以下日志
 
         :param text: 日志文本
         :return: None

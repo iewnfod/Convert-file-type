@@ -1,7 +1,7 @@
 import zipfile
 
 
-def unzip(zip_path, save_path):
+def unzip(zip_path: str, save_path: str):
     """
     解压 zip
 
