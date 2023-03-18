@@ -2,10 +2,10 @@ from PySide6.QtWidgets import *
 from PySide6.QtGui import QAction
 import os
 import json
-import platform
+from constants import *
 
 class main_window(QMainWindow):
-    def __init__(self, system, convert, *args, **kwargs):
+    def __init__(self, convert, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setWindowTitle('Convert File Type')
         self.file_path = ''
@@ -100,7 +100,7 @@ class about_window(QMainWindow):
         super().__init__(*args, **kwargs)
         self.setWindowTitle('About')
 
-        self.system = platform.uname().system
+        self.system = system
 
         with open('config.json', 'r') as f:
             self.data = json.loads(f.read())
@@ -146,7 +146,5 @@ class about_window(QMainWindow):
         elif self.system == 'win32' or self.system == 'Windows':
             os.system('explorer https://github.com/iewnfod/Convert-file-type/issues')
 
-
 def about():
-    about_win = about_window()
-    about_win.show()
+    pass

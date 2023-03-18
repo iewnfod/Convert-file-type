@@ -1,17 +1,9 @@
 import os
-import platform
+from constants import *  # 所有常量，平台信息等
 from img_exchange import *
 from support import *
 from qtui import *
 from PySide6.QtWidgets import *
-
-platform_info = platform.uname()
-system = platform_info.system
-architecture = platform_info.machine
-pandoc_path = ''
-
-print(f'平台信息: \n\t系统: {system}\n\t架构: {architecture}')
-
 
 def convert():
 
@@ -84,7 +76,7 @@ if __name__ == '__main__':
     # 初始化软件
     app = QApplication([])
     # 初始化ui
-    root = main_window(system, convert)
+    root = main_window(convert)
     # ui显示
     root.show()
     # 软件运行
