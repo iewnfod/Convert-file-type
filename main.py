@@ -5,7 +5,13 @@ from support import *
 from qtui import *
 from PySide6.QtWidgets import *
 
+
 def convert():
+    """
+    进行转化的主函数，所有转化都会首先调用此函数，再根据类型被分配到不同的函数进行执行。
+
+    :return: None
+    """
 
     target_type = root.get_target_file_type()
     if len(target_type) == 0 or target_type == '.':
@@ -18,6 +24,8 @@ def convert():
     file_name, file_type = os.path.splitext(root.file_path)
 
     target_path = f'{file_name}{target_type}'
+
+    result = ''
 
     if file_type != target_type:  # 如果不一样则需要转化
 
@@ -48,8 +56,13 @@ def convert():
 
 
 def initialize_pandoc():
+    """
+    初始化 pandoc，设置 pandoc 路径
+
+    :return: None
+    """
+
     global pandoc_path
-    # pandoc 路径设置
     if system == 'Darwin':
         # 苹果系统
         if os.path.exists('Resources/pandoc-MacOS/bin/pandoc'):
@@ -61,7 +74,7 @@ def initialize_pandoc():
 
     elif system == 'win32' or system == 'Windows':
         if os.path.exists('Resources/pandoc-Windows/pandoc.exe'):
-            pandoc_path = os.path.join(os.getcwd(), 'Resources\pandoc-Windows\pandoc.exe')
+            pandoc_path = os.path.join(os.getcwd(), 'Resources\\pandoc-Windows\\pandoc.exe')
         else:
             unzip('Resources/pandoc-Windows.zip', 'Resources')
             initialize_pandoc()
@@ -76,7 +89,7 @@ if __name__ == '__main__':
     # 初始化软件
     app = QApplication([])
     # 初始化ui
-    root = main_window(convert)
+    root = MainWindow(convert)
     # ui显示
     root.show()
     # 软件运行

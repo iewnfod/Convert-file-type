@@ -4,8 +4,13 @@ import os
 import json
 from constants import *
 
-class main_window(QMainWindow):
+
+class MainWindow(QMainWindow):
     def __init__(self, convert, *args, **kwargs):
+        """
+        初始化
+        :param convert: 主转化函数
+        """
         super().__init__(*args, **kwargs)
         self.setWindowTitle('Convert File Type')
         self.file_path = ''
@@ -13,13 +18,18 @@ class main_window(QMainWindow):
         self.convert = convert
 
         # 加载 ui
-        self.ui_init()
+        self._ui_init()
         # 加载 menubar
-        # self.menubar_init()  # 目前还有问题...
+        # self._menubar_init()  # 目前还有问题...
         # 加载 qss
-        self.qss_init()
+        self._qss_init()
 
-    def ui_init(self):
+    def _ui_init(self):
+        """
+        初始化 ui
+
+        """
+
         self.w = 500
         self.h = 305
         self.resize(self.w, self.h)
@@ -52,7 +62,14 @@ class main_window(QMainWindow):
 
         print('\033[1mFINISH LOADING UI\033[0m')
 
-    def add_log(self, text):
+    def add_log(self, text: str):
+        """
+        添加一条日志
+
+        :param text: 日志文本
+        :return: None
+        """
+
         print(text)
         self.log_area.setEnabled(True)
         self.log_area.insertPlainText(str(text) + '\n\n')
@@ -60,6 +77,12 @@ class main_window(QMainWindow):
         self.update()
 
     def get_file_path(self):
+        """
+        获取文件选择
+
+        :return: None
+        """
+
         path = QFileDialog(self, '选择文件').getOpenFileUrl()[0].path()
         if os.path.isfile(path):
             self.file_path = path
@@ -68,12 +91,20 @@ class main_window(QMainWindow):
             self.add_log(f'请正确选择文件')
 
     def open_locally(self, path):
+        """
+        在本地打开
+
+        :param path: 任何路径，可以是文件或者网址
+        """
         if self.system == 'Darwin':
             os.system(f'open \'{path}\'')
         elif self.system == 'win32' or self.system == 'Windows':
             os.system(f'explorer file:\\\\\"{path}\"')
 
-    def menubar_init(self):
+    def _menubar_init(self):
+        """
+        初始化 manubar
+        """
         about_action = QAction(text='About', parent=self)
         about_action.triggered.connect(about)
 
@@ -84,10 +115,18 @@ class main_window(QMainWindow):
         print('\033[1mFINISH LOADING MENUBAR\033[0m')
 
     def get_target_file_type(self):
+        """
+        获取目标文件类型
+
+        :return: 文件类型 str
+        """
         text = self.target_file_entry.text()
         return text if text else self.target_file_entry.placeholderText()
 
-    def qss_init(self):
+    def _qss_init(self):
+        """
+        初始化 qss
+        """
         with open('main.qss', 'r', encoding='UTF-8') as f:
             qss = f.read()
         self.setStyleSheet(qss)
@@ -95,7 +134,7 @@ class main_window(QMainWindow):
         print('\033[1mFINISH LOADING QSS\033[0m')
 
 
-class about_window(QMainWindow):
+class AboutWindow(QMainWindow):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.setWindowTitle('About')
@@ -105,9 +144,12 @@ class about_window(QMainWindow):
         with open('config.json', 'r') as f:
             self.data = json.loads(f.read())
 
-        self.ui_init()
+        self._ui_init()
 
-    def ui_init(self):
+    def _ui_init(self):
+        """
+        加载 ui
+        """
         # 加载 qss
         with open('main.qss', 'r', encoding='UTF-8') as f:
             qss = f.read()
@@ -141,10 +183,17 @@ class about_window(QMainWindow):
         self.issue_bt.clicked.connect(self.issue)
 
     def issue(self):
+        """
+        在默认浏览器打开 github issue 界面，提交问题
+        """
         if self.system == 'Darwin':
             os.system('open https://github.com/iewnfod/Convert-file-type/issues')
         elif self.system == 'win32' or self.system == 'Windows':
             os.system('explorer https://github.com/iewnfod/Convert-file-type/issues')
 
+
 def about():
+    """
+    打开 about 界面
+    """
     pass
