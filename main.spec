@@ -14,7 +14,8 @@ a = Analysis(
         ('README.md', '.'),
         ('Resources/pandoc-MacOS.zip', 'Resources'),
         ('Resources/pandoc-Windows.zip', 'Resources'),
-        ('main.qss', '.')
+        ('main.qss', '.'),
+        ('ffmpeg/MacOS/ffmpeg', 'ffmpeg/MacOS')
     ],
     hiddenimports=['moviepy.audio.fx.all.audio_fadein'],
     hookspath=[],
