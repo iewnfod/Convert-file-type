@@ -55,37 +55,7 @@ def convert():
         root.add_log(text=f'转化失败。错误信息: \n{result}')
 
 
-def initialize_pandoc():
-    """
-    初始化 pandoc，设置 pandoc 路径
-
-    :return: None
-    """
-
-    global pandoc_path
-    if system == 'Darwin':
-        # 苹果系统
-        if os.path.exists('Resources/pandoc-MacOS/bin/pandoc'):
-            pandoc_path = 'Resources/pandoc-MacOS/bin/pandoc'
-        else:
-            unzip('Resources/pandoc-MacOS.zip', 'Resources')
-            os.system('chmod +x Resources/pandoc-MacOS/bin/pandoc')
-            initialize_pandoc()
-
-    elif system == 'win32' or system == 'Windows':
-        if os.path.exists('Resources/pandoc-Windows/pandoc.exe'):
-            pandoc_path = os.path.join(os.getcwd(), 'Resources\\pandoc-Windows\\pandoc.exe')
-        else:
-            unzip('Resources/pandoc-Windows.zip', 'Resources')
-            initialize_pandoc()
-
-    print('\033[1mFINISH LOADING PANDOC\033[0m')
-    print('Pandoc Path: ', pandoc_path)
-
-
 if __name__ == '__main__':
-    # 初始化 pandoc
-    initialize_pandoc()
     # 初始化软件
     app = QApplication([])
     # 初始化ui
