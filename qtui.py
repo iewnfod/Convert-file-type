@@ -82,12 +82,13 @@ class MainWindow(QMainWindow):
         :return: None
         """
 
-        path = QFileDialog(self, '选择文件').getOpenFileUrl()[0].path()
+        path, _ = QFileDialog(self, '请选择文件').getOpenFileName()
+
         if os.path.isfile(path):
             self.file_path = path
             self.add_log(f'已选中文件: {self.file_path}')
         else:
-            self.add_log(f'请正确选择文件')
+            self.add_log(f'未找到文件: {path}')
 
     def open_locally(self, path):
         """
