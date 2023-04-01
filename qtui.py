@@ -16,6 +16,10 @@ class MainWindow(QMainWindow):
         self.file_path = ''
         self.system = system
         self.convert = convert
+        self.target_path = ''
+        self.status = ''
+        self.status_color = 'red'
+        self.text_style = 'margin: 10px'
 
         # 加载 ui
         self._ui_init()
@@ -61,17 +65,26 @@ class MainWindow(QMainWindow):
 
         print('\033[1mFINISH LOADING UI\033[0m')
 
-    def add_log(self, text: str):
+    def update_log(self):
         """
-        向 stdout 以及 log_area 添加以下日志
+        向 stdout 以及 log_area 更新日志，修改日志文本
 
-        :param text: 日志文本
         :return: None
         """
 
-        print(text)
         self.log_area.setEnabled(True)
-        self.log_area.insertPlainText(str(text) + '\n\n')
+        file_path = f'<span style="{self.text_style}">当前文件: {self.file_path}</span>'
+        target_path = f'<span style="{self.text_style}">目标文件: {self.target_path}</span>'
+        status = f'<span style="color: {self.status_color}">{self.status}</span>'
+
+        self.log_area.clear()
+        self.log_area.insertHtml(file_path)
+        self.log_area.insertPlainText('\n\n')
+        self.log_area.insertHtml(target_path)
+        self.log_area.insertPlainText('\n\n')
+        self.log_area.insertHtml(status)
+
+        self.log_area.autoFormatting()
         self.log_area.setEnabled(False)
         self.update()
 
@@ -86,9 +99,10 @@ class MainWindow(QMainWindow):
 
         if os.path.isfile(path):
             self.file_path = path
-            self.add_log(f'已选中文件: {self.file_path}')
+            self.update_log()
         else:
-            self.add_log(f'未找到文件: {path}')
+            self.status = f'未找到文件: {path}'
+            self.update_log()
 
     def open_locally(self, path):
         """

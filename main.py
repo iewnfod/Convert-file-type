@@ -15,7 +15,9 @@ def convert():
 
     target_type = root.get_target_file_type()
     if len(target_type) == 0 or target_type == '.':
-        root.add_log('请输入正确的文件类型')
+        root.status_color = 'red'
+        root.status = '请输入正确的文件类型'
+        root.update_log()
         return
 
     if target_type[0] != '.':
@@ -29,7 +31,10 @@ def convert():
 
     if file_type != target_type:  # 如果不一样则需要转化
 
-        root.add_log(f'开始转化: {root.file_path} -> {target_path}')
+        root.target_path = target_path
+        root.status_color = 'green'
+        root.status = '正在转化...'
+        root.update_log()
 
         # 选择文件类型并转化
         if target_type in image_type:
@@ -49,10 +54,13 @@ def convert():
 
     # 判断目标路径是否有所想要的文件，以验证文件是否转化成功
     if os.path.exists(f'{target_path}'):
-        root.add_log(text=f'转化成功。文件生成于: {target_path}')
+        root.target_path = target_path
+        root.update_log()
         root.open_locally(target_path)
     else:
-        root.add_log(text=f'转化失败。错误信息: \n{result}')
+        root.status_color = 'red'
+        root.status = f'转化失败。错误信息: \n{result}'
+        root.update_log()
 
 
 def main():
@@ -68,5 +76,7 @@ def main():
     root = MainWindow(convert)
     # ui显示
     root.show()
+    # 更新日志
+    root.update_log()
     # 软件运行
     app.exec()

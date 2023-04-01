@@ -34,10 +34,10 @@ def initialize_pandoc():
     if system == 'Darwin':
         # 苹果系统
         if os.path.exists('Resources/pandoc-MacOS/bin/pandoc'):
+            os.chmod('Resources/pandoc-MacOS/bin/pandoc', 777)
             pandoc_path = 'Resources/pandoc-MacOS/bin/pandoc'
         else:
             unzip('Resources/pandoc-MacOS.zip', 'Resources')
-            os.system('chmod +x Resources/pandoc-MacOS/bin/pandoc')
             initialize_pandoc()
 
     elif system == 'win32' or system == 'Windows':
