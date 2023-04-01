@@ -55,7 +55,13 @@ def convert():
         root.add_log(text=f'转化失败。错误信息: \n{result}')
 
 
-if __name__ == '__main__':
+def main():
+    """
+    主函数
+
+    :return: None
+    """
+    global app, root
     # 初始化软件
     app = QApplication([])
     # 初始化ui

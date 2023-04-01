@@ -49,8 +49,3 @@ def initialize_pandoc():
 
     print('\033[1mFINISH LOADING PANDOC\033[0m')
     print('Pandoc Path: ', pandoc_path)
-
-
-# main
-initialize_pandoc()
-initialize_ffmpeg()
