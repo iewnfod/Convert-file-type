@@ -78,11 +78,14 @@ class MainWindow(QMainWindow):
         status = f'<span style="color: {self.status_color}">{self.status}</span>'
 
         self.log_area.clear()
-        self.log_area.insertHtml(file_path)
-        self.log_area.insertPlainText('\n\n')
-        self.log_area.insertHtml(target_path)
-        self.log_area.insertPlainText('\n\n')
-        self.log_area.insertHtml(status)
+        if self.file_path:
+            self.log_area.insertHtml(file_path)
+            self.log_area.insertPlainText('\n\n')
+        if self.target_path:
+            self.log_area.insertHtml(target_path)
+            self.log_area.insertPlainText('\n\n')
+        if self.status:
+            self.log_area.insertHtml(status)
 
         self.log_area.autoFormatting()
         self.log_area.setEnabled(False)
