@@ -1,7 +1,6 @@
 from PySide6.QtWidgets import *
-from PySide6.QtGui import QAction
+from PySide6.QtGui import QIcon
 import os
-import json
 from constants import *
 
 
@@ -23,8 +22,6 @@ class MainWindow(QMainWindow):
 
         # 加载 ui
         self._ui_init()
-        # 加载 menubar
-        # self._menubar_init()  # 目前还有问题...
         # 加载 qss
         self._qss_init()
 
@@ -41,8 +38,14 @@ class MainWindow(QMainWindow):
         # 文件选择
         self.get_file_path_bt = QPushButton('选择文件', self)
         self.get_file_path_bt.move(0, 5)
-        self.get_file_path_bt.resize(500, 40)
+        self.get_file_path_bt.resize(460, 40)
         self.get_file_path_bt.clicked.connect(self.get_file_path)
+        # 前往主页
+        self.to_homepage_bt = QPushButton(self)
+        self.to_homepage_bt.move(460, 5)
+        self.to_homepage_bt.resize(40, 40)
+        self.to_homepage_bt.setIcon(QIcon('github.ico'))
+        self.to_homepage_bt.clicked.connect(self.to_homepage)
         # 目标类型，label
         self.target_file_enter_label = QLabel('目标文件类型: ', self)
         self.target_file_enter_label.move(10, 45)
@@ -61,7 +64,6 @@ class MainWindow(QMainWindow):
         self.log_area = QTextEdit(self)
         self.log_area.move(0, 85)
         self.log_area.resize(500, 220)
-        self.log_area.setEnabled(False)
 
         print('\033[1mFINISH LOADING UI\033[0m')
 
@@ -72,7 +74,6 @@ class MainWindow(QMainWindow):
         :return: None
         """
 
-        self.log_area.setEnabled(True)
         file_path = f'<span style="{self.text_style}">当前文件: {self.file_path}</span>'
         target_path = f'<span style="{self.text_style}">目标文件: {self.target_path}</span>'
         status = f'<span style="color: {self.status_color}">{self.status}</span>'
@@ -87,8 +88,6 @@ class MainWindow(QMainWindow):
         if self.status:
             self.log_area.insertHtml(status)
 
-        self.log_area.autoFormatting()
-        self.log_area.setEnabled(False)
         self.update()
 
     def get_file_path(self):
@@ -118,19 +117,6 @@ class MainWindow(QMainWindow):
         elif self.system == 'win32' or self.system == 'Windows':
             os.system(f'explorer file:\\\\\"{path}\"')
 
-    def _menubar_init(self):
-        """
-        初始化 manubar
-        """
-        about_action = QAction(text='About', parent=self)
-        about_action.triggered.connect(about)
-
-        menu = self.menuBar()
-        main_menu = menu.addMenu('Main')
-        main_menu.addAction(about_action)
-
-        print('\033[1mFINISH LOADING MENUBAR\033[0m')
-
     def get_target_file_type(self):
         """
         获取目标文件类型
@@ -150,67 +136,5 @@ class MainWindow(QMainWindow):
 
         print('\033[1mFINISH LOADING QSS\033[0m')
 
-
-class AboutWindow(QMainWindow):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-        self.setWindowTitle('About')
-
-        self.system = system
-
-        with open('config.json', 'r') as f:
-            self.data = json.loads(f.read())
-
-        self._ui_init()
-
-    def _ui_init(self):
-        """
-        加载 ui
-        """
-        # 加载 qss
-        with open('main.qss', 'r', encoding='UTF-8') as f:
-            qss = f.read()
-        self.setStyleSheet(qss)
-
-        # main
-        self.w = 200
-        self.h = 150
-        self.resize(self.w, self.h)
-        self.setMaximumSize(self.w, self.h)
-        self.setMinimumSize(self.w, self.h)
-
-        # 标题
-        self.title = QLabel('Convert File Type', self)
-        self.title.setStyleSheet('font-size: 30px')
-        self.title.move(0, 0)
-        self.title.resize(200, 50)
-
-        # 作者，版本
-        self.author = QLabel(f'Author: {self.data["author"]}', self)
-        self.version = QLabel(f'Version: {self.data["version"]}', self)
-        self.author.move(0, 60)
-        self.author.resize(100, 30)
-        self.version.move(30, 60)
-        self.version.resize(100, 30)
-
-        # 提交错误
-        self.issue_bt = QPushButton('提交错误', self)
-        self.issue_bt.move(0, 100)
-        self.issue_bt.resize(200, 40)
-        self.issue_bt.clicked.connect(self.issue)
-
-    def issue(self):
-        """
-        在默认浏览器打开 github issue 界面，提交问题
-        """
-        if self.system == 'Darwin':
-            os.system('open https://github.com/iewnfod/Convert-file-type/issues')
-        elif self.system == 'win32' or self.system == 'Windows':
-            os.system('explorer https://github.com/iewnfod/Convert-file-type/issues')
-
-
-def about():
-    """
-    打开 about 界面
-    """
-    pass
+    def to_homepage(self):
+        self.open_locally('https://github.com/iewnfod/Convert-file-type/')
