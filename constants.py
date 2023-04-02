@@ -18,6 +18,7 @@ def initialize_ffmpeg():
     """
 
     if system == 'Darwin':
+        os.chmod('ffmpeg/MacOS/ffmpeg', 777)
         os.environ['IMAGEIO_FFMPEG_EXE'] = 'ffmpeg/MacOS/ffmpeg'
 
     print('\033[1mFINISH LOADING FFMPEG\033[0m')
