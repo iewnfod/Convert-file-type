@@ -5,15 +5,13 @@ block_cipher = None
 
 
 a = Analysis(
-    ['main.py', 'support.py', 'img_exchange.py', 'qtui.py', 'constants.py'],
+    ['__init__.py', 'main.py', 'support.py', 'img_exchange.py', 'qtui.py', 'constants.py'],
     pathex=['/Users/Muyunxi/Desktop/desktop/Developer/Convert-File-Type'],
     binaries=[],
     datas=[
         ('config.json', '.'),
         ('LICENSE', '.'),
         ('README.md', '.'),
-        ('Resources/pandoc-MacOS.zip', 'Resources'),
-        ('Resources/pandoc-Windows.zip', 'Resources'),
         ('main.qss', '.'),
         ('ffmpeg/MacOS/ffmpeg', 'ffmpeg/MacOS')
     ],
