@@ -3,7 +3,6 @@ from constants import *
 
 if __name__ == '__main__':
     # init
-    initialize_pandoc()
     initialize_ffmpeg()
     # main
     main()

@@ -22,31 +22,3 @@ def initialize_ffmpeg():
         os.environ['IMAGEIO_FFMPEG_EXE'] = 'ffmpeg/MacOS/ffmpeg'
 
     print('\033[1mFINISH LOADING FFMPEG\033[0m')
-
-
-def initialize_pandoc():
-    """
-    初始化 pandoc。设置 pandoc 路径
-
-    :return: None
-    """
-
-    global pandoc_path
-    if system == 'Darwin':
-        # 苹果系统
-        if os.path.exists('Resources/pandoc-MacOS/bin/pandoc'):
-            os.chmod('Resources/pandoc-MacOS/bin/pandoc', 777)
-            pandoc_path = 'Resources/pandoc-MacOS/bin/pandoc'
-        else:
-            unzip('Resources/pandoc-MacOS.zip', 'Resources')
-            initialize_pandoc()
-
-    elif system == 'win32' or system == 'Windows':
-        if os.path.exists('Resources/pandoc-Windows/pandoc.exe'):
-            pandoc_path = os.path.join(os.getcwd(), 'Resources\\pandoc-Windows\\pandoc.exe')
-        else:
-            unzip('Resources/pandoc-Windows.zip', 'Resources')
-            initialize_pandoc()
-
-    print('\033[1mFINISH LOADING PANDOC\033[0m')
-    print('Pandoc Path: ', pandoc_path)

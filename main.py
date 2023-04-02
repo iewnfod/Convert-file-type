@@ -4,7 +4,7 @@ from img_exchange import *
 from support import *
 from qtui import *
 from PySide6.QtWidgets import *
-
+import pypandoc
 
 def convert():
     """
@@ -47,14 +47,16 @@ def convert():
             result = to_video(root.file_path, target_path)
 
         else:
-            if system == 'Darwin':
-                result = os.system(f'{pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
-            elif system == 'Windows' or system == 'win32':
-                result = os.system(f'powershell; {pandoc_path} \'{root.file_path}\' -o \'{target_path}\'')
+            try:
+                pypandoc.convert_file(source_file=root.file_path, to=target_type[1:], format=file_type[1:], outputfile=target_path)
+            except Exception as err:
+                result = err
 
     # 判断目标路径是否有所想要的文件，以验证文件是否转化成功
     if os.path.exists(f'{target_path}'):
         root.target_path = target_path
+        root.status_color = 'green'
+        root.status = '转化成功'
         root.update_log()
         root.open_locally(target_path)
     else:
