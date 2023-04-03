@@ -61,7 +61,7 @@ def convert():
         root.open_locally(target_path)
     else:
         root.status_color = 'red'
-        root.status = f'转化失败。错误信息: \n{result}'
+        root.status = f'转化失败。\n{result}'
         root.update_log()
 
 

@@ -64,6 +64,7 @@ class MainWindow(QMainWindow):
         self.log_area = QTextEdit(self)
         self.log_area.move(0, 85)
         self.log_area.resize(500, 220)
+        self.log_area.setReadOnly(True)
 
         print('\033[1mFINISH LOADING UI\033[0m')
 
@@ -76,7 +77,7 @@ class MainWindow(QMainWindow):
 
         file_path = f'<span style="{self.text_style}">当前文件: {self.file_path}</span>'
         target_path = f'<span style="{self.text_style}">目标文件: {self.target_path}</span>'
-        status = f'<span style="color: {self.status_color}">{self.status}</span>'
+        status = f'<span style="color: {self.status_color}; white-space: pre-wrap">{self.status}</span>'
 
         self.log_area.clear()
         if self.file_path:
@@ -98,6 +99,9 @@ class MainWindow(QMainWindow):
         """
 
         path, _ = QFileDialog(self, '请选择文件').getOpenFileName()
+        self.target_path = ''
+        self.status = ''
+        self.file_path = ''
 
         if os.path.isfile(path):
             self.file_path = path
@@ -130,7 +134,7 @@ class MainWindow(QMainWindow):
         """
         初始化 qss
         """
-        with open('main.qss', 'r', encoding='UTF-8') as f:
+        with open(os.path.join('src', 'main.qss'), 'r', encoding='UTF-8') as f:
             qss = f.read()
         self.setStyleSheet(qss)
 
