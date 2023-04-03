@@ -9,6 +9,7 @@ build/
 dist/
 *.docx
 .fleet/
+venv/
 
 # Ignore Gradle project-specific cache directory
 .gradle

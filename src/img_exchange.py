@@ -1,5 +1,5 @@
-from PIL import Image
 import moviepy.editor as mp
+from PIL import Image
 
 # 图片转换 使用 PIL.Image
 image_type = {
