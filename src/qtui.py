@@ -103,12 +103,13 @@ class MainWindow(QMainWindow):
         self.status = ''
         self.file_path = ''
 
-        if os.path.isfile(path):
-            self.file_path = path
-            self.update_log()
-        else:
-            self.status = f'未找到文件: {path}'
-            self.update_log()
+        if path:
+            if os.path.isfile(path):
+                self.file_path = path
+                self.update_log()
+            else:
+                self.status = f'未找到文件: {path}'
+                self.update_log()
 
     def open_locally(self, path):
         """
