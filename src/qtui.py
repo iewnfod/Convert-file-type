@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QIcon
 import os
-from constants import *
+from src.constants import *
 
 
 class MainWindow(QMainWindow):
@@ -44,7 +44,7 @@ class MainWindow(QMainWindow):
         self.to_homepage_bt = QPushButton(self)
         self.to_homepage_bt.move(460, 5)
         self.to_homepage_bt.resize(40, 40)
-        self.to_homepage_bt.setIcon(QIcon('github.ico'))
+        self.to_homepage_bt.setIcon(QIcon('Resources/github.ico'))
         self.to_homepage_bt.clicked.connect(self.to_homepage)
         # 目标类型，label
         self.target_file_enter_label = QLabel('目标文件类型: ', self)

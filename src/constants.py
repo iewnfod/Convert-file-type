@@ -1,6 +1,6 @@
 import os
 import platform
-from support import *
+from src.support import *
 
 platform_info = platform.uname()
 system = platform_info.system

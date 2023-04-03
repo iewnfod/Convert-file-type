@@ -1,8 +1,8 @@
 import os
-from constants import *  # 所有常量，平台信息等
-from img_exchange import *
-from support import *
-from qtui import *
+from src.constants import *  # 所有常量，平台信息等
+from src.img_exchange import *
+from src.support import *
+from src.qtui import *
 from PySide6.QtWidgets import *
 import pypandoc
 

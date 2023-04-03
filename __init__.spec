@@ -5,12 +5,12 @@ block_cipher = None
 
 
 a = Analysis(
-    ['src/__init__.py'],
-    pathex=[],
+    ['__init__.py'],
+    pathex=['src/'],
     binaries=[],
     datas=[
         ('ffmpeg', 'ffmpeg'),
-        ('github.ico', 'github.ico'),
+        ('Resources', 'Resources'),
         ('src', 'src')
     ],
     hiddenimports=[],

@@ -1,7 +1,7 @@
-from main import main
-from constants import *
+from src.main import main
+from src.constants import *
 
-if __name__ == '__main__':
+def __init__():
     # init
     initialize_ffmpeg()
     # main
