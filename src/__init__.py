@@ -1,7 +1,6 @@
 from src.constants import *
 
 def __init__():
-    print('Initializing')
     # init
     initialize_ffmpeg()
     # main
