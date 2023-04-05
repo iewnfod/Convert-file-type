@@ -1,14 +1,13 @@
 import os
 import platform
 from src.support import *
-from pypandoc.pandoc_download import download_pandoc
 import pypandoc
 import ssl
+import wget
 
 platform_info = platform.uname()
 system = platform_info.system
 architecture = platform_info.machine
-pandoc_path = ''
 
 print(f'平台信息: \n\t系统: {system}\n\t架构: {architecture}')
 
@@ -30,6 +29,27 @@ def initialize_ffmpeg():
     print('\033[1mFINISH LOADING FFMPEG\033[0m')
 
 
+def install_pandoc():
+    ssl._create_default_https_context = ssl._create_unverified_context
+    # 下载安装，如果保存，就手动下载安装
+    try:
+        pypandoc.pandoc_download.download_pandoc()
+    except:
+        url, version = pypandoc.pandoc_download._get_pandoc_urls()
+        if system == 'Darwin':
+            wget.download(url['darwin'])
+            url = url['darwin'].split('/')[-1]
+            os.system(f'open \'{url}\'')
+
+        elif system == 'win32' or system == 'Windows':
+            wget.download(url['win32'])
+            url = url['win32'].split('/')[-1]
+            os.system(f'explorer file:\\\\\"{url}\"')
+
+        else:
+            print('Unsupported platform. ')
+            exit(0)
+
 def initialize_pandoc():
     """
     初始化 pandoc，下载 pandoc sdk
@@ -37,8 +57,14 @@ def initialize_pandoc():
     :return: None
     """
 
-    ssl._create_default_https_context = ssl._create_unverified_context
-    download_pandoc()
+    # 如果 pandoc 不存在，或者没有，就下载安装
+    try:
+        if not os.path.exists(pypandoc.get_pandoc_path()):
+            install_pandoc()
+    except:
+        install_pandoc()
+
+    print('\033[1mFINISH LOADING PANDOC\033[0m')
 
 
 def __init__():
