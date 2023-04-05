@@ -1,8 +1,8 @@
-from src.constants import *
+import src.constants
+src.constants.__init__()
+
+from src.main import main
 
 def __init__():
-    # init
-    initialize_ffmpeg()
     # main
-    from src.main import main
     main()

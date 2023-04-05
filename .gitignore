@@ -11,6 +11,7 @@ dist/
 .fleet/
 venv/
 *.dmg
+*.pkg
 
 # Ignore Gradle project-specific cache directory
 .gradle

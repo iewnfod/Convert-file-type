@@ -1,6 +1,9 @@
 import os
 import platform
 from src.support import *
+from pypandoc.pandoc_download import download_pandoc
+import pypandoc
+import ssl
 
 platform_info = platform.uname()
 system = platform_info.system
@@ -25,3 +28,19 @@ def initialize_ffmpeg():
         os.environ['IMAGEIO_FFMPEG_EXE'] = 'ffmpeg/MacOS/ffmpeg'
 
     print('\033[1mFINISH LOADING FFMPEG\033[0m')
+
+
+def initialize_pandoc():
+    """
+    初始化 pandoc，下载 pandoc sdk
+
+    :return: None
+    """
+
+    ssl._create_default_https_context = ssl._create_unverified_context
+    download_pandoc()
+
+
+def __init__():
+    initialize_ffmpeg()
+    initialize_pandoc()
