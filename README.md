@@ -5,7 +5,7 @@
 
 ## 文件转化
 现已使用的库:
-* pyPandoc
+* PyPandoc
 * PIL Image
 * Moviepy
 
