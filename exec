@@ -1,0 +1,27 @@
+# 进入当前目录
+cd `dirname $0`
+
+echo "Checking your python3 environment. "
+# 查看 python3 环境
+if [ python3 ]; then
+    alias py='python3'
+elif [ python ]; then
+    alias py='python'
+else
+    echo "Please install Python3 to run this script correctly. "
+    open "python.org"
+    exit 0
+fi
+
+echo "Checking your pip environment. "
+# 查看 pip 是否安装
+if [ pip ]; then
+    echo ""
+elif [pip3]; then
+    echo ""
+else
+    py get-pip.py
+fi
+
+# main
+py __init__.py
