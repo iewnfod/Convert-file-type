@@ -28,7 +28,7 @@ cd ...\Convert-file-type
 python __init__.py
 ```
 如果提示没有 python，请尝试 python3。
-如果依旧没有，请查看 python sdk 路径是否包括在系统环境变量中，或重新安装 python，并在安装时选择将 python 加入到```PATH```中。
+如果依旧没有，请查看 python sdk 路径是否包括在系统环境变量中，或重新安装 python，并在安装时选择将 python 加入到 PATH 中。
 
 ## 文件转化
 现已使用的库:
