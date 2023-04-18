@@ -30,6 +30,9 @@ def initialize_ffmpeg():
 
 
 def install_pandoc():
+    """
+    安装 pandoc sdk
+    """
     ssl._create_default_https_context = ssl._create_unverified_context
     # 下载安装，如果保存，就手动下载安装
     try:

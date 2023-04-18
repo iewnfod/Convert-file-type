@@ -1,6 +1,7 @@
 import moviepy.editor as mp
 from PIL import Image
 
+
 # 图片转换 使用 PIL.Image
 image_type = {
     '.jpg',
@@ -45,7 +46,6 @@ image_type = {
     '.xbm',
 }
 
-
 def image_convert(file_path: str, target_path: str):
     """
     转化图片类型，使用 PIL.Image。
@@ -67,7 +67,6 @@ def image_convert(file_path: str, target_path: str):
 gif_type = {
     '.gif'
 }
-
 
 def to_gif(file_path: str, target_path: str):
     """
@@ -91,7 +90,6 @@ video_type = {
     '.webm',
     '.mp3'
 }
-
 
 def to_video(file_path, target_path):
     """
