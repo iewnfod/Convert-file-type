@@ -13,6 +13,7 @@ venv/
 *.dmg
 *.pkg
 *.msi
+*.tmp
 
 # Ignore Gradle project-specific cache directory
 .gradle

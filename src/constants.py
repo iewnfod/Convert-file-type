@@ -32,16 +32,15 @@ def initialize_ffmpeg():
 min_width = float('inf')
 
 def draw_bar(current, total, width=80):
-    global last_time, last_value, min_width
-    last_value = current
+    global min_width
     if current == -1 or total == -1:
         return
     msg = f' {current} / {total}'
     width -= len(msg) - 5
     min_width = min(width, min_width)
     percent = int(current / total * min_width)
-    text = '[' + '\033[92m-\033[0m'*percent + '-'*(min_width - percent) + ']' + msg
-    print('\r' + text + ' ' * (width - len(text)))
+    text = '[' + '\033[92m─\033[0m'*percent + '─'*(min_width - percent) + ']' + msg
+    print('\r' + text + ' ' * (width - len(text)), end='')
 
 
 def install_pandoc():
@@ -56,12 +55,15 @@ def install_pandoc():
         name = url['darwin'].split('/')[-1]
         if not os.path.exists(name):
             wget.download(url['darwin'], bar=draw_bar)
+            print()
         os.system(f'open \'{name}\'')
 
     elif system == 'win32' or system == 'Windows':
         name = url['darwin'].split('/')[-1]
         if not os.path.exists(name):
             wget.download(url['win32'], bar=draw_bar)
+            print()
+        print(f'If the install file does not start automatically, please start it by yourself: {name}')
         os.startfile(name)
 
     else:
@@ -77,7 +79,7 @@ def initialize_pandoc():
 
     # 如果 pandoc 不存在，或者没有，就下载安装
     try:
-        if not os.path.exists(pypandoc.get_pandoc_path()):
+        if os.system(pypandoc.get_pandoc_path() + ' --version'):
             install_pandoc()
     except:
         install_pandoc()
