@@ -29,29 +29,44 @@ def initialize_ffmpeg():
     print('\033[1mFINISH LOADING FFMPEG\033[0m')
 
 
+min_width = float('inf')
+
+def draw_bar(current, total, width=80):
+    global last_time, last_value, min_width
+    last_value = current
+    if current == -1 or total == -1:
+        return
+    msg = f' {current} / {total}'
+    width -= len(msg) - 5
+    min_width = min(width, min_width)
+    percent = int(current / total * min_width)
+    text = '[' + '\033[92m-\033[0m'*percent + '-'*(min_width - percent) + ']' + msg
+    print('\r' + text + ' ' * (width - len(text)))
+
+
 def install_pandoc():
     """
     安装 pandoc sdk
     """
     ssl._create_default_https_context = ssl._create_unverified_context
     # 下载安装，如果保存，就手动下载安装
-    try:
-        pypandoc.pandoc_download.download_pandoc()
-    except:
-        url, version = pypandoc.pandoc_download._get_pandoc_urls()
-        if system == 'Darwin':
-            wget.download(url['darwin'])
-            url = url['darwin'].split('/')[-1]
-            os.system(f'open \'{url}\'')
+    print('Getting Pandoc SDK...')
+    url, version = pypandoc.pandoc_download._get_pandoc_urls()
+    if system == 'Darwin':
+        name = url['darwin'].split('/')[-1]
+        if not os.path.exists(name):
+            wget.download(url['darwin'], bar=draw_bar)
+        os.system(f'open \'{name}\'')
 
-        elif system == 'win32' or system == 'Windows':
-            wget.download(url['win32'])
-            url = url['win32'].split('/')[-1]
-            os.system(f'explorer file:\\\\\"{url}\"')
+    elif system == 'win32' or system == 'Windows':
+        name = url['darwin'].split('/')[-1]
+        if not os.path.exists(name):
+            wget.download(url['win32'], bar=draw_bar)
+        os.startfile(name)
 
-        else:
-            print('Unsupported platform. ')
-            exit(0)
+    else:
+        print('Unsupported platform. ')
+        exit(0)
 
 def initialize_pandoc():
     """

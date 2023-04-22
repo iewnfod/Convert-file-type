@@ -4,6 +4,7 @@ from src.img_exchange import *
 from src.support import *
 from src.qtui import *
 from PySide6.QtWidgets import *
+from PySide6.QtGui import *
 import pypandoc
 
 
@@ -75,6 +76,10 @@ def main():
     global app, root
     # 初始化软件
     app = QApplication([])
+    icon = QIcon()
+    icon.addPixmap(QPixmap('icon.icns'), QIcon.Normal, QIcon.Off)
+    app.setWindowIcon(icon)
+    app.setApplicationDisplayName('Convert File Type')
     app.setApplicationName('Convert File Type')
     # 初始化ui
     root = MainWindow(convert)
