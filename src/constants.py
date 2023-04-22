@@ -70,6 +70,18 @@ def install_pandoc():
         print('Unsupported platform. ')
         exit(0)
 
+def getPATH():
+    path = set()
+    for i in os.environ['PATH'].split(':'):
+        if not os.path.exists(i):
+            continue
+        files = os.listdir(i)
+        for file in files:
+            if os.path.isfile(os.path.join(i, file)):
+                path.add(file)
+
+    return path
+
 def initialize_pandoc():
     """
     初始化 pandoc，下载 pandoc sdk
@@ -79,7 +91,7 @@ def initialize_pandoc():
 
     # 如果 pandoc 不存在，或者没有，就下载安装
     try:
-        if os.system(pypandoc.get_pandoc_path() + ' --version'):
+        if pypandoc.get_pandoc_path() not in getPATH():
             install_pandoc()
     except:
         install_pandoc()
