@@ -65,7 +65,7 @@ def install_pandoc():
     elif SYSTEM == 'win32' or SYSTEM == 'Windows':
         name = url['darwin'].split('/')[-1]
         if not os.path.exists(name):
-            wget.download(url['win32'], bar=draw_bar)
+            wget.download(url['win32'], bar=_draw_bar)
             print()
         print(f'If the install file does not start automatically, please start it by yourself: {name}')
         os.startfile(name)
