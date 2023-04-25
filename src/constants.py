@@ -19,11 +19,11 @@ def initialize_ffmpeg():
     :return: None
     """
 
+    print('\033[1mInitializing ffmpeg\033[0m')
+
     if SYSTEM == 'Darwin':
         os.system('chmod +x ffmpeg/MacOS/ffmpeg')  # 赋予 ffmpeg 可执行权限
         os.environ['PATH'] += ':' + os.path.join(os.getcwd(), 'ffmpeg/MacOS')
-
-    print('\033[1mFINISH LOADING FFMPEG\033[0m')
 
 
 min_width = float('inf')
@@ -86,14 +86,13 @@ def initialize_pandoc():
     :return: None
     """
 
+    print('\033[1mInitializing pandoc\033[0m')
     # 如果 pandoc 不存在，或者没有，就下载安装
     try:
         if pypandoc.get_pandoc_path() not in getPATH():
             install_pandoc()
     except:
         install_pandoc()
-
-    print('\033[1mFINISH LOADING PANDOC\033[0m')
 
 
 def __init__():

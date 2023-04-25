@@ -20,6 +20,7 @@ class MainWindow(QMainWindow):
         self.status_color = 'red'
         self.text_style = 'margin: 10px'
 
+        print('\033[1mInitializing GUI\033[0m')
         # 加载 ui
         self._ui_init()
         # 加载 qss
@@ -65,8 +66,6 @@ class MainWindow(QMainWindow):
         self.log_area.move(0, 85)
         self.log_area.resize(500, 220)
         self.log_area.setReadOnly(True)
-
-        print('\033[1mFINISH LOADING UI\033[0m')
 
     def update_log(self):
         """
@@ -138,8 +137,6 @@ class MainWindow(QMainWindow):
         with open(os.path.join('src', 'main.qss'), 'r', encoding='UTF-8') as f:
             qss = f.read()
         self.setStyleSheet(qss)
-
-        print('\033[1mFINISH LOADING QSS\033[0m')
 
     def to_homepage(self):
         self.open_locally('https://github.com/iewnfod/Convert-file-type/')
