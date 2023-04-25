@@ -5,11 +5,11 @@ import pypandoc
 import ssl
 import wget
 
-platform_info = platform.uname()
-system = platform_info.system
-architecture = platform_info.machine
+PLATFORM_INFO = platform.uname()
+SYSTEM = PLATFORM_INFO.system
+ARCHITECTURE = PLATFORM_INFO.machine
 
-print(f'平台信息: \n\t系统: {system}\n\t架构: {architecture}')
+print(f'平台信息: \n\t系统: {SYSTEM}\n\t架构: {ARCHITECTURE}')
 
 
 def initialize_ffmpeg():
@@ -19,12 +19,9 @@ def initialize_ffmpeg():
     :return: None
     """
 
-    if system == 'Darwin':
-        try:
-            os.chmod('ffmpeg/MacOS/ffmpeg', 777)
-        except Exception as err:
-            print(err)
-        os.environ['IMAGEIO_FFMPEG_EXE'] = 'ffmpeg/MacOS/ffmpeg'
+    if SYSTEM == 'Darwin':
+        os.system('chmod +x ffmpeg/MacOS/ffmpeg')  # 赋予 ffmpeg 可执行权限
+        os.environ['PATH'] += ':' + os.path.join(os.getcwd(), 'ffmpeg/MacOS')
 
     print('\033[1mFINISH LOADING FFMPEG\033[0m')
 
@@ -51,14 +48,14 @@ def install_pandoc():
     # 下载安装，如果保存，就手动下载安装
     print('Getting Pandoc SDK...')
     url, version = pypandoc.pandoc_download._get_pandoc_urls()
-    if system == 'Darwin':
+    if SYSTEM == 'Darwin':
         name = url['darwin'].split('/')[-1]
         if not os.path.exists(name):
             wget.download(url['darwin'], bar=draw_bar)
             print()
         os.system(f'open \'{name}\'')
 
-    elif system == 'win32' or system == 'Windows':
+    elif SYSTEM == 'win32' or SYSTEM == 'Windows':
         name = url['darwin'].split('/')[-1]
         if not os.path.exists(name):
             wget.download(url['win32'], bar=draw_bar)

@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         super().__init__(*args, **kwargs)
         self.setWindowTitle('Convert File Type')
         self.file_path = ''
-        self.system = system
+        self.system = SYSTEM
         self.convert = convert
         self.target_path = ''
         self.status = ''

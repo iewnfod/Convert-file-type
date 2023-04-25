@@ -34,7 +34,7 @@ python __init__.py
 现已使用的库:
 * PyPandoc
 * PIL Image
-* Moviepy
+* ffmpeg (暂不支持 Windows) (若已经自行安装了ffmpeg，可尝试)
 
 ***理论上***支持: 以上库的所有支持的文件类型
 

@@ -1,6 +1,6 @@
 import os
 from src.constants import *  # 所有常量，平台信息等
-from src.img_exchange import *
+from src.convert import *
 from src.support import *
 from src.qtui import *
 from PySide6.QtWidgets import *
@@ -42,11 +42,8 @@ def convert():
         if target_type in image_type:
             result = image_convert(root.file_path, target_path)
 
-        elif target_type in gif_type:
-            result = to_gif(root.file_path, target_path)
-
-        elif target_type in video_type:
-            result = to_video(root.file_path, target_path)
+        elif target_type in audio_video_type:
+            result = to_audio_video(root.file_path, target_path)
 
         else:
             try:

@@ -15,12 +15,12 @@ libs = [
     ('PySide6', 'PySide6'),
     ('pypandoc', 'pypandoc'),
     ('wget', 'wget'),
-    ('moviepy', 'moviepy'),
+    ('ffmpeg-python', 'ffmpeg'),
     ('pillow', 'PIL')
 ]
 for lib_name, import_name in libs:
     try:
-        importlib.import_module(import_name)
+        print(importlib.import_module(import_name))
     except:
         pip.main(['install', lib_name, '-i', 'https://pypi.tuna.tsinghua.edu.cn/simple'])
 
