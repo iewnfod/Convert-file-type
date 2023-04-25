@@ -9,7 +9,7 @@ elif [ python ]; then
     alias py='python'
 else
     echo "Please install Python3 to run this script correctly. "
-    open "python.org"
+    open "https://python.org"
     exit 0
 fi
 
