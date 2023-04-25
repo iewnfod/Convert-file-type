@@ -110,7 +110,7 @@ class MainWindow(QMainWindow):
                 self.status = f'未找到文件: {path}'
                 self.update_log()
 
-    def open_locally(self, path):
+    def open_locally(self, path, isUrl = False):
         """
         在本地打开
 
@@ -119,7 +119,10 @@ class MainWindow(QMainWindow):
         if self.system == 'Darwin':
             os.system(f'open \'{path}\'')
         elif self.system == 'win32' or self.system == 'Windows':
-            os.system(f'explorer file:\\\\\"{path}\"')
+            if isUrl:
+                os.system(f'explorer {path}')
+            else:
+                os.system(f'explorer file:\\\\\"{path}\"')
 
     def get_target_file_type(self):
         """
@@ -139,4 +142,4 @@ class MainWindow(QMainWindow):
         self.setStyleSheet(qss)
 
     def to_homepage(self):
-        self.open_locally('https://github.com/iewnfod/Convert-file-type/')
+        self.open_locally('https://github.com/iewnfod/Convert-file-type/', isUrl=True)
