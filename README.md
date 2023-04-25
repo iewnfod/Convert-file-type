@@ -31,12 +31,13 @@ python __init__.py
 如果依旧没有，请查看 python sdk 路径是否包括在系统环境变量中，或重新安装 python，并在安装时选择将 python 加入到 PATH 中。
 
 ## 文件转化
-现已使用的库:
-* PyPandoc
+基于的库:
+* PyPandoc (这东西对pdf的支持挺迷的，除了pdf其他都可以用)
 * PIL Image
 * ffmpeg (暂不支持 Windows) (若已经自行安装了ffmpeg，可尝试)
 
 ***理论上***支持: 以上库的所有支持的文件类型
+由于很多文件格式没有机会亲自尝试，因此暂不开放，若有需要可以修改 ```src/convert/``` 下的文件，在 ```..._type={...}``` 中添加自己想要的类型。 (请确保它们被以上库支持)
 
 ## GUI
 * Qt: PySide6 - src/qtui.py
