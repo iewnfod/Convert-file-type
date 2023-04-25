@@ -20,7 +20,7 @@ if [ pip ]; then
 elif [pip3]; then
     echo ""
 else
-    py get-pip.py
+    py -m ensurepip --upgrade
 fi
 
 # main
