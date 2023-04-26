@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QIcon
+from PySide6.QtCore import QThread, QObject
 import os
 from src.constants import *
 
@@ -14,17 +15,33 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Convert File Type')
         self.file_path = ''
         self.system = SYSTEM
-        self.convert = convert
         self.target_path = ''
         self.status = ''
         self.status_color = 'red'
         self.text_style = 'margin: 10px'
+
+        # 转化
+        self._convert = convert  # 转化函数
+        self.convert_object = None  # 转化实例
+        self.convert_thread = None  # 转化线程
 
         print('\033[1mInitializing GUI\033[0m')
         # 加载 ui
         self._ui_init()
         # 加载 qss
         self._qss_init()
+
+    def convert(self):
+        """
+        鼠标点击时间会连接到此函数，此函数会开启一个线程来使真正的转化函数运行，以避免转化对渲染造成阻塞
+        """
+        self.convert_object = QObject()
+        self.convert_thread = QThread()
+        self.convert_object.moveToThread(self.convert_thread)
+        self.convert_thread.started.connect(self._convert)
+        self.convert_thread.finished.connect(self.convert_object.deleteLater)
+        self.convert_thread.finished.connect(self.convert_thread.deleteLater)
+        self.convert_thread.start()
 
     def _ui_init(self):
         """
