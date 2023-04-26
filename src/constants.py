@@ -110,3 +110,7 @@ def __init__():
     PATH = getPATH()
     initialize_ffmpeg()
     initialize_pandoc()
+
+
+# init
+__init__()

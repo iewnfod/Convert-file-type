@@ -24,7 +24,8 @@ for lib_name, import_name in libs:
     except:
         pip.main(['install', lib_name, '-i', 'https://pypi.tuna.tsinghua.edu.cn/simple'])
 
+
 # 启动
-import src
+src = importlib.import_module('src')
 
 src.__init__()
