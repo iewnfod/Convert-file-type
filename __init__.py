@@ -21,7 +21,9 @@ libs = [
 for lib_name, import_name in libs:
     try:
         print(importlib.import_module(import_name))
-    except:
+    except Exception as err:
+        print(f"Import error: \n\t{err}.")
+        print(f"Try to install {lib_name}.")
         pip.main(['install', lib_name, '-i', 'https://pypi.tuna.tsinghua.edu.cn/simple'])
 
 
